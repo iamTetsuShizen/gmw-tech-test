@@ -12,22 +12,15 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn
-        </a>
-        <h1> TEST ONE quizas prueba loca</h1>
-        <button onClick={test}>Test</button>
+      <header>
+        <form className="searchBar">
+          <input></input>
+          <button> Search </button>
+        </form>
       </header>
+      <section>
+
+      </section>
     </div>
   );
 }
