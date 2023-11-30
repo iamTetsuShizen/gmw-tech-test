@@ -1,3 +1,51 @@
 header {}
 
-section {}
+section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.searchBar {
+  width: 100%;
+  max-width: 400px; /* Adjust the max-width based on your design preferences */
+  margin: 0 auto;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.searchBar input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.searchBar button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff; /* Change the background color as needed */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.searchBar button:hover {
+  background-color: #0056b3; /* Change the hover background color as needed */
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

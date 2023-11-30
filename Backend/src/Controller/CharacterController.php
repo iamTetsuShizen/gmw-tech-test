@@ -8,21 +8,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/characters')]
 class CharacterController extends AbstractController
 {
     #[Route('/', name: 'app_character_index', methods: ['GET'])]
-    public function index(CharacterRepository $characterRepository): JsonResponse
+    public function index(CharacterRepository $characterRepository, SerializerInterface $serializer): JsonResponse
     {
-        return JsonResponse($characterRepository->findAll());
+        return new JsonResponse($serializer->normalize($characterRepository->findAll()));
     }
 
     #[Route('/{id}', name: 'app_character_show', methods: ['GET'])]
-    public function show(Character $character): JsonResponse
+    public function show($id, CharacterRepository $characterRepository,  SerializerInterface $serializer): JsonResponse
     {
-        return JsonResponse($character);
+        return new JsonResponse($serializer->normalize($characterRepository->find($id)));
     }
 
     #[Route('/{id}/edit', name: 'app_character_edit', methods: ['GET', 'POST'])]

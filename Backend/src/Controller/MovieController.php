@@ -17,6 +17,6 @@ class MovieController extends AbstractController
     #[Route('/', name: 'app_movie_index', methods: ['GET'])]
     public function index(MovieRepository $movieRepository): JsonResponse
     {
-        return JsonResponse($movieRepository->findAll());
+        return $this->json($movieRepository->findAll());
     }
 }
