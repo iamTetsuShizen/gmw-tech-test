@@ -56,7 +56,7 @@
 
 #### Difficulties Faced:
 
-- Entity named `Character` resulted in a table named `character` due to it being a reserved word. Solution: ORM mapping for each Entity.
+- Entity named `Character` resulted in a table named `character` due to it being a reserved word on MySQL, the persisting of data in the custom command was giving error, since it needed to acces via app_db.character. Solution: ORM mapping for each Entity (eg: #[ORM\Table(name: 'characters')]).
 
 - Serialization in the controller caused issues with returning empty objects to the front. Solution: Used `$serializer->normalize` to convert the object into an array before sending as JSON.
 
