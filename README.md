@@ -1,76 +1,70 @@
-**Star Wars Database Project Documentation**
+# gmw-tech-test
 
-**Objective:**
-Create a Star Wars database by fetching information from the SWAPI API, and implement functionalities to view, edit, and delete characters. Additionally, display a list of movies and characters associated with each movie.
+## Gracia Media Web Tech Test consists of creating a Star Wars database by fetching information from the SWAPI API, and implement functionalities to view, edit, and delete characters. Additionally, display a list of movies and characters associated with each movie.
 
-**Database Structure:**
+### Project Setup
 
-1. **characters Table:**
-   - id (Primary Key)
-   - name
-   - mass
-   - height
-   - gender
-   - picture
+#### Back:
 
-2. **movies Table:**
-   - id (Primary Key)
-   - name
+1. Inside the folder `./Backend/.docker`, run:
+    ```
+    docker compose up -d
+    ```
 
-3. **movies_characters Table:**
-   - movie_id (Foreign Key referencing movies.id)
-   - character_id (Foreign Key referencing characters.id)
+2. From inside the Docker machine, generate DB and tables from entities:
+    ```
+    php bin/console make:migration
+    bin/console doctrine:migrations:migrate
+    ```
 
-**Command to Import Data:**
-```bash
-php bin/console starwars:import
-```
+3. Populate the DB with a custom command:
+    ```
+    php bin/console starwars:import
+    ```
 
-**Homepage:**
-Display a list of all characters in the database with their names and pictures. Include a search functionality to find characters by their names.
+4. Access the backend at:
+   - [http://localhost:8080/](http://localhost:8080/)
+   - [http://localhost:8080/characters](http://localhost:8080/characters) to see the list of all characters
+   - [http://localhost:8080/characters/{id}](http://localhost:8080/characters/{id}) to view an individual character
 
-**Character Details Page:**
-- Clicking on a character's name redirects to a detailed page.
-- The page should show all details of the character.
-- Include an option to edit the character's data and upload a new picture.
-- Provide a button to delete the character.
+#### Front:
 
-**Editing Form:**
-- Editable fields: name, mass, height, gender.
-- Ability to upload a new picture.
-- Option to delete the character.
+1. On the root of the folder `/Frontend`, run:
+    ```
+    docker compose up -d
+    ```
 
-**Movies Page:**
-- Create a new page with the URL "/movies" to list all movies in the database.
-- Clicking on a movie name should display a list of characters associated with that movie along with their uploaded pictures.
+2. Access the frontend at:
+   - [http://localhost:3000/](http://localhost:3000/)
 
-**Implementation Notes:**
+### Project Overview
 
-1. **Fetching Data from SWAPI:**
-   - Use the SWAPI API (https://swapi.dev/) to download information about 30 characters and all movies.
-   - Map the data to the respective tables in the database.
+#### What I Have Done:
 
-2. **Command Implementation:**
-   - Create a Symfony console command named `starwars:import` to fetch and import data.
+- Prepared the environment for coding, utilizing template repositories for each part:
+  - Front: [React-Nginx](https://github.com/docker/awesome-compose/tree/master/react-nginx) - Removed nginx production part and adjusted for port 3000.
+  - Back: [Symfony-Docker](https://github.com/ger86/symfony-docker/tree/master) - Ensured no port collisions between front and back.
 
-3. **Homepage Implementation:**
-   - Display characters with names and pictures.
-   - Implement a search feature to find characters by name.
+- Backend:
+  - Generated entities and controllers via Symfony PHP commands.
+  - Adapted controllers to return JSON instead of twig templates.
+  - Created a custom command (`php bin/console starwars:import`) for data migration.
 
-4. **Character Details and Editing:**
-   - Create a detailed page for each character.
-   - Include an edit form with the ability to upload a new picture.
-   - Implement deletion functionality.
+- Frontend:
+  - Adapted React `App.js` for exercise requirements.
+  - Generated cards and added basic styles for layout.
 
-5. **Movies Page Implementation:**
-   - Create a new page with the URL "/movies" to list all movies.
-   - Display characters associated with each movie, including uploaded pictures.
+#### Difficulties Faced:
 
-**Extra Points (Optional):**
-- Implement pagination for character and movie lists.
-- Add styling and enhance the user interface.
-- Implement user authentication for editing and deleting characters.
-- Implement error handling for API requests and database operations.
+- Entity named `Character` resulted in a table named `character` due to it being a reserved word. Solution: ORM mapping for each Entity.
 
-**Note:**
-Ensure that Symfony and any required dependencies are properly configured before running the command. Follow Symfony and Doctrine documentation for database and command setup.
+- Serialization in the controller caused issues with returning empty objects to the front. Solution: Used `$serializer->normalize` to convert the object into an array before sending as JSON.
+
+#### Future Plans (with more time):
+
+- Finish all functionalities as per task requirements.
+- Refactor the command to make parallel requests instead of sequential.
+- Implement atomic design in React components, possibly using Storybook.
+- Refactor backend CRUD, especially the extra code from class creation with PHP command.
+- Add tests, considering a Test-Driven Development (TDD) approach.
+- Refine `package.json` to use styled components for better organization in atomic design.
