@@ -14,7 +14,7 @@
 2. From inside the Docker machine, generate DB and tables from entities:
     ```
     php bin/console make:migration
-    bin/console doctrine:migrations:migrate
+    php bin/console doctrine:migrations:migrate
     ```
 
 3. Populate the DB with a custom command:
